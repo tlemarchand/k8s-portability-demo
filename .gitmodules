@@ -1,3 +1,6 @@
 [submodule "k8s.lemarchand.io/upstream"]
 	path = k8s.lemarchand.io/upstream
 	url = https://github.com/GoogleCloudPlatform/microservices-demo.git
+[submodule "base/upstream"]
+	path = base/upstream
+	url = https://github.com/GoogleCloudPlatform/microservices-demo.git

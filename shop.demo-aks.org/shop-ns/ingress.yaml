@@ -1,23 +1,3 @@
-apiVersion: certmanager.k8s.io/v1alpha1
-kind: Certificate
-metadata:
-  name: cert-shop.demo-aks.org
-  namespace: istio-system
-spec:
-  commonName: shop.demo-aks.org
-  dnsNames:
-  - shop.demo-aks.org
-  issuerRef:
-    kind: ClusterIssuer
-    name: letsencrypt
-  secretName: cert-shop.demo-aks.org
-  acme:
-    config:
-    - http01:
-        ingressClass: istio
-      domains:
-      - shop.demo-aks.org
----
 kind: istio
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -28,13 +8,13 @@ spec:
     istio: ingressgateway
   servers:
   - hosts:
-    - shop.demo-aks.org
+    - shop.aks-demo.org
     port:
-      name: https-443-shop.demo-aks.org
+      name: https-443-shop.aks-demo.org
       number: 443
       protocol: HTTPS
     tls:
-      credentialName: cert-shop.demo-aks.org
+      credentialName: cert-shop.aks-demo.org
       mode: SIMPLE
       privateKey: sds
       serverCertificate: sds
@@ -45,7 +25,7 @@ metadata:
   name: shop-vs
 spec:
   hosts:
-  - shop.demo-aks.org
+  - shop.aks-demo.org
   gateways:
   - shop-gateway
   http:
@@ -54,8 +34,8 @@ spec:
         prefix: /
     route:
     - destination:
-        host: "frontend-external.shop.svc.cluster.local"
-        subset: v1-0-0
+        host: "frontend.shop.svc.cluster.local"
+        subset: frontend
         port:
           number: 80
     timeout: 3s
@@ -69,12 +49,11 @@ kind: DestinationRule
 metadata:
   name: shop-dr
 spec:
-  host: "frontend-external.shop.svc.cluster.local"
+  host: "frontend.shop.svc.cluster.local"
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
   subsets:
-  - name: v1-0-0
+  - name: frontend
     labels:
-      app: "release-name-frontend"
-      version: "v1.0.0"
+      app: frontend

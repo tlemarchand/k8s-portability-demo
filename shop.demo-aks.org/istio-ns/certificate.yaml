@@ -1,0 +1,19 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: cert-shop.aks-demo.org
+  namespace: istio-system
+spec:
+  commonName: shop.aks-demo.org
+  dnsNames:
+  - shop.aks-demo.org
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+  secretName: cert-shop.aks-demo.org
+  acme:
+    config:
+    - http01:
+        ingressClass: istio
+      domains:
+      - shop.aks-demo.org

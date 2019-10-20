@@ -3,4 +3,3 @@ kind: Kustomization
 bases:
 - istio-ns
 - shop-ns
-- ../base/

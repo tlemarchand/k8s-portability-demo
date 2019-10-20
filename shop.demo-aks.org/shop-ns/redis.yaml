@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cart
+spec:
+  template:
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: failure-domain.beta.kubernetes.io/zone
+                operator: In
+                values:
+                - westeurope-1
+      containers:
+      - name: redis
+        volumeMounts:
+        - mountPath: /data
+          name: redis-persistent-data
+      volumes:
+      - name: redis-persistent-data
+        persistentVolumeClaim:
+          claimName: pvc-azuredisk-z1

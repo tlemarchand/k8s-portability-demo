@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cart
+spec:
+  template:
+    spec:
+      containers:
+      - name: redis
+        volumeMounts:
+        - mountPath: /data
+          name: redis-persistent-data
+      volumes:
+      - $patch: delete
+        name: redis-data
+      - name: redis-persistent-data
+        persistentVolumeClaim:
+          claimName: redis-pvc

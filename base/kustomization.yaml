@@ -3,6 +3,8 @@ kind: Kustomization
 namespace: shop
 patchesStrategicMerge:
 - service.yaml
+- redis.yaml
 resources:
-- upstream/release/kubernetes-manifests.yaml
 - namespace.yaml
+- storage.yaml
+- upstream/release/kubernetes-manifests.yaml

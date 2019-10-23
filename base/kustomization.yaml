@@ -4,6 +4,7 @@ namespace: shop
 patchesStrategicMerge:
 - service.yaml
 - redis.yaml
+- loadgenerator.yaml
 resources:
 - namespace.yaml
 - storage.yaml

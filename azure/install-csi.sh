@@ -7,4 +7,6 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/azuredisk-csi
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/azuredisk-csi-driver/master/deploy/v0.4.0/csi-azuredisk-controller.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/azuredisk-csi-driver/master/deploy/v0.4.0/csi-azuredisk-node.yaml
 
-kubectl get po -o wide -n kube-system | grep csi-azurefile
+kubectl apply -f ./storageclass.yaml
+
+kubectl get po -o wide -n kube-system | grep csi-azuredisk

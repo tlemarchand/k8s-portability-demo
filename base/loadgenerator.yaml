@@ -8,3 +8,6 @@ spec:
       containers:
       - name: main
         image: kubernetes/pause
+      initContainers:
+      - $patch: delete
+        name: wait-frontend
